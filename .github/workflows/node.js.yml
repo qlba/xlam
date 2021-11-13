@@ -21,17 +21,22 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - name: Bootstrap
+    - name: Bootstrap dependencies
       run: npm ci
-    - name: Try building
+    - name: Ensure project can be built
       run: npm run-script build
     - name: Run linters
       run: npm run-script verify
-    - name: Run sonar
+    - name: Run Sonar
       uses: SonarSource/sonarcloud-github-action@v1.6
       env:
-        SONAR_TOKEN: b15dc9787f36ebb655b1134f0e95ab55a25907f9
-    - name: post coverage to code climate
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          args: >
+            -Dsonar.organization=qlba
+            -Dsonar.projectKey=xlam
+    - name: Upload coverage to Code Climate
       uses: paambaati/codeclimate-action@v3.0.0
       env:
         CC_TEST_REPORTER_ID: fc93a1841ed3b2d045f96fac98dee4fb8c8a4010ce2a984bd1cc792edae01492
