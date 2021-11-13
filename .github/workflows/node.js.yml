@@ -24,7 +24,10 @@ jobs:
     - run: npm ci
     - run: npm run-script build
     - run: npm run-script verify
-    - uses: paambaati/codeclimate-action@v3.0.0
+    - name: sonar
+      uses: SonarSource/sonarcloud-github-action@v1.6
+    - name: post coverage to code climate
+      uses: paambaati/codeclimate-action@v3.0.0
       env:
         CC_TEST_REPORTER_ID: fc93a1841ed3b2d045f96fac98dee4fb8c8a4010ce2a984bd1cc792edae01492
       with:
