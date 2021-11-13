@@ -31,4 +31,5 @@ jobs:
         # Coverage command to execute
         coverageCommand: npm run-script verify-jest
         # Locations to find code coverage (Used for builds from multiple locations)
-        coverageLocations: coverage
+        coverageLocations: |
+          ${{github.workspace}}/coverage/lcov.info:lcov
