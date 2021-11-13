@@ -21,11 +21,16 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: npm ci
-    - run: npm run-script build
-    - run: npm run-script verify
-    - name: sonar
+    - name: Bootstrap
+      run: npm ci
+    - name: Try building
+      run: npm run-script build
+    - name: Run linters
+      run: npm run-script verify
+    - name: Run sonar
       uses: SonarSource/sonarcloud-github-action@v1.6
+      env:
+        SONAR_TOKEN: b15dc9787f36ebb655b1134f0e95ab55a25907f9
     - name: post coverage to code climate
       uses: paambaati/codeclimate-action@v3.0.0
       env:
