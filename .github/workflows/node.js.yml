@@ -1,0 +1,67 @@
+name: Node.js CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+    types: [ opened, synchronize, reopened ]
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [ 14.x ]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    - name: Prepare
+      run: npm ci
+    - name: Run test built
+      run: npm run-script build
+    - name: Run Prettier check
+      run: npm run-script verify-prettier
+    - name: Run StyleLint
+      run: npm run-script verify-stylelint
+    - name: Run ESLint
+      run: npm run-script verify-eslint
+    - name: Run CSpell
+      run: npm run-script verify-cspell
+    - name: Run TypeScript check
+      run: npm run-script verify-typescript
+    - name: Run tests with coverage
+      run: npm run-script test-coverage
+    - name: Upload coverage to Code Climate
+      uses: paambaati/codeclimate-action@v3.0.0
+      env:
+        CC_TEST_REPORTER_ID: fc93a1841ed3b2d045f96fac98dee4fb8c8a4010ce2a984bd1cc792edae01492
+      with:
+        coverageLocations: ${{ github.workspace }}/coverage/lcov.info:lcov
+    - name: Substitute code coverage paths for Sonar
+      working-directory: ./coverage
+      run: |
+        sed -i 's@'$GITHUB_WORKSPACE'@/github/workspace/@g' ${{ github.workspace }}/coverage/lcov.info
+        sed -i 's@'$GITHUB_WORKSPACE'@/github/workspace/@g' ${{ github.workspace }}/test-report.xml
+    - name: Run Sonar
+      uses: SonarSource/sonarcloud-github-action@master
+      with:
+        args: >
+          -Dsonar.organization=qlba
+          -Dsonar.projectKey=qlba_xlam
+          -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
+          -Dsonar.testExecutionReportPaths=test-report.xml
+          -Dsonar.dynamicAnalysis=reuseReports
+          -Dsonar.sources=src
+          -Dsonar.tests=src
+          -Dsonar.exclusions=**/*.test.ts,**/*.test.tsx
+          -Dsonar.test.inclusions=**/*.test.ts,**/*.test.tsx
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
