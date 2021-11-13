@@ -1,0 +1,15 @@
+{
+    "version": "0.2",
+    "language": "en",
+    "words": [],
+    "flagWords": [
+        "lick"
+    ],
+    "ignorePaths": [
+        "/src/react-app-env.d.ts",
+        "/src/reportWebVitals.ts",
+        "/src/serviceWorkerRegistration.ts",
+        "/src/service-worker.ts",
+        "/src/setupTests.ts"
+    ]
+}
