@@ -32,10 +32,10 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        with:
-          args: >
-            -Dsonar.organization=qlba
-            -Dsonar.projectKey=xlam
+      with:
+        args: >
+          -Dsonar.organization=qlba
+          -Dsonar.projectKey=xlam
     - name: Upload coverage to Code Climate
       uses: paambaati/codeclimate-action@v3.0.0
       env:
