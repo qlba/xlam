@@ -1,0 +1,1 @@
+[![Maintainability](https://api.codeclimate.com/v1/badges/533dae45e7403e7bb76b/maintainability)](https://codeclimate.com/github/qlba/xlam/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/533dae45e7403e7bb76b/test_coverage)](https://codeclimate.com/github/qlba/xlam/test_coverage)
