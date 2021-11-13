@@ -36,6 +36,8 @@ jobs:
         args: >
           -Dsonar.organization=qlba
           -Dsonar.projectKey=xlam
+          -Dsonar.javascript.lcov.reportPaths=${{ github.workspace }}/coverage/lcov.info
+          -Dsonar.branch.name=master
     - name: Upload coverage to Code Climate
       uses: paambaati/codeclimate-action@v3.0.0
       env:
@@ -45,4 +47,4 @@ jobs:
         coverageCommand: npm run-script verify-jest
         # Locations to find code coverage (Used for builds from multiple locations)
         coverageLocations: |
-          ${{github.workspace}}/coverage/lcov.info:lcov
+          ${{ github.workspace }}/coverage/lcov.info:lcov
