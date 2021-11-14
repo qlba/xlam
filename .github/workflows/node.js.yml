@@ -34,7 +34,7 @@ jobs:
         args: >
           -Dsonar.organization=qlba
           -Dsonar.projectKey=qlba_xlam
-          -Dsonar.javascript.lcov.reportPaths=${{ github.workspace }}/coverage/lcov.info
+          -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
           -Dsonar.sources=src
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
