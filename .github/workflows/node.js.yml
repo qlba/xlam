@@ -35,8 +35,10 @@ jobs:
       with:
         args: >
           -Dsonar.organization=qlba
-          -Dsonar.projectKey=xlam
+          -Dsonar.projectKey=qlba_xlam
           -Dsonar.javascript.lcov.reportPaths=${{ github.workspace }}/coverage/lcov.info
+          -Dsonar.sources=src
+          -Dsonar.verbose=true
     - name: Upload coverage to Code Climate
       uses: paambaati/codeclimate-action@v3.0.0
       env:
