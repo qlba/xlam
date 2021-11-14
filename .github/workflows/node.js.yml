@@ -50,8 +50,8 @@ jobs:
         args: >
           -Dsonar.organization=qlba
           -Dsonar.projectKey=qlba_xlam
-          -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
-          -Dsonar.testExecutionReportPaths=test-report.xml
+          -Dsonar.javascript.lcov.reportPaths=${{ github.workspace }}/coverage/lcov.info
+          -Dsonar.testExecutionReportPaths=${{ github.workspace }}/test-report.xml
           -Dsonar.dynamicAnalysis=reuseReports
           -Dsonar.sources=src
       env:
