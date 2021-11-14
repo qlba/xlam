@@ -22,20 +22,28 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - name: Bootstrap dependencies
+    - name: Prepare
       run: npm ci
-    - name: Ensure project can be built
+    - name: Run test built
       run: npm run-script build
-    - name: Run linters
-      run: npm run-script verify
+    - name: Run Prettier check
+      run: npm run-script verify-prettier
+    - name: Run StyleLint
+      run: npm run-script verify-stylelint
+    - name: Run ESLint
+      run: npm run-script verify-eslint
+    - name: Run CSpell
+      run: npm run-script verify-cspell
+    - name: Run TypeScript check
+      run: npm run-script verify-typescript
+    - name: Run tests with coverage
+      run: npm run-script test-coverage
     - name: Upload coverage to Code Climate
       uses: paambaati/codeclimate-action@v3.0.0
       env:
         CC_TEST_REPORTER_ID: fc93a1841ed3b2d045f96fac98dee4fb8c8a4010ce2a984bd1cc792edae01492
       with:
-        coverageCommand: npm run-script 
-        coverageLocations: |
-          ${{ github.workspace }}/coverage/lcov.info:lcov
+        coverageLocations: ${{ github.workspace }}/coverage/lcov.info:lcov
     - name: Run Sonar
       uses: SonarSource/sonarcloud-github-action@master
       with:
