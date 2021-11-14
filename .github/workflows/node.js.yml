@@ -5,6 +5,7 @@ on:
     branches: [ master ]
   pull_request:
     branches: [ master ]
+    types: [ opened, synchronize, reopened ]
 
 jobs:
   main:
@@ -28,17 +29,18 @@ jobs:
     - name: Run linters
       run: npm run-script verify
     - name: Run Sonar
-      uses: SonarSource/sonarcloud-github-action@v1.6
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      uses: SonarSource/sonarcloud-github-action@master
       with:
+        fetch-depth: 0
         args: >
           -Dsonar.organization=qlba
           -Dsonar.projectKey=qlba_xlam
           -Dsonar.javascript.lcov.reportPaths=${{ github.workspace }}/coverage/lcov.info
           -Dsonar.sources=src
           -Dsonar.verbose=true
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
     - name: Upload coverage to Code Climate
       uses: paambaati/codeclimate-action@v3.0.0
       env:
