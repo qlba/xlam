@@ -1,3 +1,5 @@
+![build](https://github.com/qlba/xlam/actions/workflows/node.js.yml/badge.svg)
+
 [![Maintainability](https://api.codeclimate.com/v1/badges/533dae45e7403e7bb76b/maintainability)](https://codeclimate.com/github/qlba/xlam/maintainability)<br/>
 [![Test Coverage](https://api.codeclimate.com/v1/badges/533dae45e7403e7bb76b/test_coverage)](https://codeclimate.com/github/qlba/xlam/test_coverage)
 
