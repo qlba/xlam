@@ -28,6 +28,14 @@ jobs:
       run: npm run-script build
     - name: Run linters
       run: npm run-script verify
+    - name: Upload coverage to Code Climate
+      uses: paambaati/codeclimate-action@v3.0.0
+      env:
+        CC_TEST_REPORTER_ID: fc93a1841ed3b2d045f96fac98dee4fb8c8a4010ce2a984bd1cc792edae01492
+      with:
+        coverageCommand: npm run-script 
+        coverageLocations: |
+          ${{ github.workspace }}/coverage/lcov.info:lcov
     - name: Run Sonar
       uses: SonarSource/sonarcloud-github-action@master
       with:
@@ -35,17 +43,9 @@ jobs:
           -Dsonar.organization=qlba
           -Dsonar.projectKey=qlba_xlam
           -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
+          -Dsonar.testExecutionReportPaths=test-report.xml
+          -Dsonar.dynamicAnalysis=reuseReports
           -Dsonar.sources=src
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-    - name: Upload coverage to Code Climate
-      uses: paambaati/codeclimate-action@v3.0.0
-      env:
-        CC_TEST_REPORTER_ID: fc93a1841ed3b2d045f96fac98dee4fb8c8a4010ce2a984bd1cc792edae01492
-      with:
-        # Coverage command to execute
-        coverageCommand: npm run-script verify-jest
-        # Locations to find code coverage (Used for builds from multiple locations)
-        coverageLocations: |
-          ${{ github.workspace }}/coverage/lcov.info:lcov
