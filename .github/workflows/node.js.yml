@@ -44,6 +44,11 @@ jobs:
         CC_TEST_REPORTER_ID: fc93a1841ed3b2d045f96fac98dee4fb8c8a4010ce2a984bd1cc792edae01492
       with:
         coverageLocations: ${{ github.workspace }}/coverage/lcov.info:lcov
+    - name: Substitute code coverage paths for Sonar
+      working-directory: ./coverage
+      run: |
+        sed -i 's@'$GITHUB_WORKSPACE'@/github/workspace/@g' coverage/lcov.info
+        sed -i 's@'$GITHUB_WORKSPACE'@/github/workspace/@g' test-report.xml
     - name: Run Sonar
       uses: SonarSource/sonarcloud-github-action@master
       with:
