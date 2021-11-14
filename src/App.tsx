@@ -18,7 +18,7 @@ function App() {
         >
           Learn React
         </a>
-        <code>DeveD</code>
+        <code>Developed</code>
       </header>
     </div>
   );
