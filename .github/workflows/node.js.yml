@@ -47,8 +47,8 @@ jobs:
     - name: Substitute code coverage paths for Sonar
       working-directory: ./coverage
       run: |
-        sed -i 's@'$GITHUB_WORKSPACE'@/github/workspace/@g' coverage/lcov.info
-        sed -i 's@'$GITHUB_WORKSPACE'@/github/workspace/@g' test-report.xml
+        sed -i 's@'$GITHUB_WORKSPACE'@/github/workspace/@g' ${{ github.workspace }}/coverage/lcov.info
+        sed -i 's@'$GITHUB_WORKSPACE'@/github/workspace/@g' ${{ github.workspace }}/test-report.xml
     - name: Run Sonar
       uses: SonarSource/sonarcloud-github-action@master
       with:
