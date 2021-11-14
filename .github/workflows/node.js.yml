@@ -1,4 +1,4 @@
-name: Node.js CI
+name: tests
 
 on:
   push:
@@ -26,16 +26,8 @@ jobs:
       run: npm ci
     - name: Run test built
       run: npm run-script build
-    - name: Run Prettier check
-      run: npm run-script verify-prettier
-    - name: Run StyleLint
-      run: npm run-script verify-stylelint
-    - name: Run ESLint
-      run: npm run-script verify-eslint
-    - name: Run CSpell
-      run: npm run-script verify-cspell
-    - name: Run TypeScript check
-      run: npm run-script verify-typescript
+    - name: Run Linters
+      run: npm run-script verify
     - name: Run tests with coverage
       run: npm run-script test-coverage
     - name: Upload coverage to Code Climate
